@@ -1,0 +1,37 @@
+<html>
+<style>
+    body {
+        font-size: 15pt;
+        font-family: arial;
+    }
+</style>
+
+
+<body>
+    <h1>Some famous Computer Scientists</h1>
+    <div>{{data}}</div>
+
+    <div>
+        {% for n in data %}
+        <div>{{n}}</div>
+        {% endfor %}
+    </div>
+
+    <form method="POST" action="/login">
+        <p>Username: <input type="text" name="name"></p>
+        <p>password: <input type="text" name="name"></p>
+        <p>Name of new computer scientist: <input type="text" name="name"></p>
+        <p><input type="submit" value="login"></p>
+    </form>
+
+    <form method="POST" action="/signup">
+        <p>Username: <input type="text" name="name"></p>
+        <p>password: <input type="text" name="name"></p>
+        <p>Email: <input type="text" name="name"></p>
+        <p><input type="submit" value="login"></p>
+    </form>
+
+</body>
+
+
+</html>

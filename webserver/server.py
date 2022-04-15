@@ -16,7 +16,7 @@ Read about it online.
 import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
-from flask import Flask, request, render_template, g, redirect, Response
+from flask import Flask, request, render_template, g, redirect, Response, flash, session, abort
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -35,7 +35,7 @@ app = Flask(__name__, template_folder=tmpl_dir)
 
 # Use the DB credentials you received by e-mail
 
-DATABASEURI = "postgresql://aat2167:3627@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2"
+DATABASEURI = "postgresql://xq2219:0897@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2"
 
 #
 # This line creates a database engine that knows how to connect to the URI above
@@ -95,7 +95,7 @@ def teardown_request(exception):
 # see for routing: http://flask.pocoo.org/docs/0.10/quickstart/#routing
 # see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
 #
-@app.route('/')
+@app.route('/index')
 def index():
   """
   request is a special object that Flask provides to access web request information:
@@ -180,11 +180,28 @@ def add():
 
 @app.route('/login')
 def login():
-    abort(401)
-    this_is_never_executed()
+  abort(401)
+  this_is_never_executed()
+
+@app.route('/')
+def home():
+  if not session.get('logged_in'):
+    return render_template('login.html')
+  else:
+    return "Hello Boss!"
+
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+  if request.form['password'] == 'password' and request.form['username'] == 'admin':
+    session['logged_in'] = True
+  else:
+    flash('wrong password!')
+    return home()
+
 
 
 if __name__ == "__main__":
+  app.secret_key = os.urandom(12)
   import click
 
   @click.command()
