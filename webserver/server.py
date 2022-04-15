@@ -35,7 +35,7 @@ app = Flask(__name__, template_folder=tmpl_dir)
 
 # Use the DB credentials you received by e-mail
 
-DATABASEURI = "postgresql://xq2219:0897@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2"
+DATABASEURI = "postgresql://xq2219:0798@w4111.cisxo09blonu.us-east-1.rds.amazonaws.com/proj1part2"
 
 #
 # This line creates a database engine that knows how to connect to the URI above
